@@ -105,7 +105,7 @@ function App() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/projects/${editId}`,
+        `http://shahin-portfolio-api.onrender.com/api/projects/${editId}`,
         {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
