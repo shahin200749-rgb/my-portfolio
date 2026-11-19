@@ -1,19 +1,27 @@
 
 const mysql = require('mysql2');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT || 4000),
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+    database: process.env.DB_NAME,
+    ssl: {
+        ca: fs.readFileSync(
+            path.join(__dirname, 'certs', 'isrgrootx1.pem')
+        )
+    }
 });
 
 db.connect((err) => {
     if (err) {
         console.error('MySQL connection failed:', err.message);
     } else {
-        console.log('MySQL Database Connected Successfully! ❤️');
+        console.log('TiDB Database Connected Successfully! ❤️');
     }
 });
 
